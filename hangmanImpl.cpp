@@ -15,8 +15,8 @@ void CurrentGame::playGame() {
 	}
 	if (attemptsLeft == 0) {
 		printHangman();
-		cout << string(3, '\n') << "\t- - - - - - - - - YOU LOSE  - - - - - - - - - " << endl;
-		cout << "\tThe word was '" << chosenWord << "'" << string(3, '\n');
+		cout << string(4, '\n') << "\t- - - - - - - - - YOU LOSE  - - - - - - - - - " << endl;
+		cout << "\tThe word was '" << chosenWord << "'" << string(5, '\n');
 	}
 }
 
@@ -24,11 +24,11 @@ void CurrentGame::playGame() {
 void CurrentGame::printHangman() {
 	cout << "\n\t* * * * * * * * * *";
 	if (attemptsLeft)
-		cout << " \tYou have " << attemptsLeft << (attemptsLeft == 1 ? " attempt" : " attmepts") << " left\n";
+		cout << "\tAttmepts left: " << attemptsLeft  << endl;
 	else {cout << endl;}
 	cout << "\t*   _________     *";
 	if (attemptsLeft) {
-		cout << "\tUsed Letters: [";
+		cout << "\tUsed Letters:  [";
 		printGuessedLetters();
 	}
 	else {cout << endl;}
@@ -79,8 +79,8 @@ void CurrentGame::printHangman() {
 
 	correctLetters.insert(guess);
 	if (checkGameStatus()) {
-		cout << string(3, '\n') << "\t- - - - - - - - - YOU WON!  - - - - - - - - - " << endl;
-		cout << "\tThe word was '" << chosenWord << "'" << string(3, '\n');
+		cout << string(4, '\n') << "\t- - - - - - - - - YOU WON!  - - - - - - - - - " << endl;
+		cout << "\tThe word was '" << chosenWord << "'" << endl << endl;
 		return;
 	}
 }

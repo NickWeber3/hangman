@@ -2742,14 +2742,12 @@ oldie
 olive
 omega
 omelet
-oncology
 one
 onion
 open
 opening
 opera
 operation
-ophthalmologist
 opinion
 opium
 opossum
@@ -2785,7 +2783,6 @@ outfit
 outhouse
 outlay
 output
-outrigger
 outset
 outside
 oval
@@ -3194,8 +3191,6 @@ purse
 push
 pusher
 put
-pvc
-pyjama
 pyramid
 quadrant
 quail

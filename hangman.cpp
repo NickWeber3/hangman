@@ -1,5 +1,6 @@
 /*
 TO-DO:
+	- Implement play again function
 	- Clean-up output function, make more abstact
 	- Why does this only work when including .cpp file?
 */
