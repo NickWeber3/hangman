@@ -13,14 +13,14 @@ public final class HangmanUtils {
     private static Scanner reader = new Scanner(System.in);
 
 
-    // GAME FLOW METHODS
-
+    // ~~~~~~~~~~~~ GAME FLOW METHODS ~~~~~~~~~~~~
+    // Continuously play rounds until player wins or runs out of attempts
     public static void playGame(String chosenWordInput) {
         chosenWord = chosenWordInput.toUpperCase();
         for (char c : chosenWord.toCharArray()) {
             chosenWordCharacters.add(Character.toString(c));
         }
-        printLine("\nWELCOME TO HANGMAN ༼ つ ◕_◕ ༽つ\n");
+        printLine("\nWELCOME TO HANGMAN MOTHERFUCKER ༼ つ ◕_◕ ༽つ\n");
 
         while (attemptsLeft != 0) {
             playRound();
@@ -34,19 +34,20 @@ public final class HangmanUtils {
         reader.close();
     }
 
+    // Print current game stats, prompt user for guess and check if correct
     private static void playRound() {
         printWordProgress();
         printGuessedLetters();
         printLine("Guess Left: " + attemptsLeft);
-        printGameState();
-        String guess = readCharacter();
+        printHangmanState();
+        String guess = promptAndReadGuess();
         printLine("\n             │\n             │\n             │\n             v");
+
         if (guessedLetters.contains(guess)) {
             printLine("\n~~ You've already guessed that you stupid fuck ~~\n");
             return;
         }
         guessedLetters.add(guess);
-        Collections.sort(guessedLetters);
 
         if (chosenWordCharacters.contains(guess)) {
             printLine("\n~~ You son of a bitch, by god '" + guess + "' is in the word ~~\n");
@@ -59,7 +60,8 @@ public final class HangmanUtils {
         }
     }
 
-    private static String readCharacter() {
+    // Prompt user for letter guess, validate input and return guess
+    private static String promptAndReadGuess() {
         String guess = "";
         while (guess.length() != 1) {
             System.out.print("What letter you finna guess?: ");
@@ -76,12 +78,13 @@ public final class HangmanUtils {
     }
 
 
-    // PRINT GAME METHODS
-
+    // ~~~~~~~~~~~~ PRINT GAME METHODS ~~~~~~~~~~~~
+    // Wrapper for Java println()
     private static void printLine(String str) {
         System.out.println(str);
     }
 
+    // Print letter tiles of word with correct guesses filled in
     private static void printWordProgress() {
         String wordProgress = "Your word: ";
         for (String c : chosenWordCharacters) {
@@ -91,7 +94,9 @@ public final class HangmanUtils {
         printLine(wordProgress);
     }
 
+    // Print guessed letters to user after sorting alphabetically
     private static void printGuessedLetters() {
+        Collections.sort(guessedLetters);
         String guessedLettersLine = "Guessed Letters: [";
         for (String c : guessedLetters) {
             guessedLettersLine = guessedLettersLine + " " + c;
@@ -99,9 +104,10 @@ public final class HangmanUtils {
         printLine(guessedLettersLine + " ]");
     }
 
+    // Print final game board and win or loss string
     private static void printGameOver(boolean win) {
         printLine("YOUR FINAL BOARD:");
-        printGameState();
+        printHangmanState();
         printWordProgress();
         if (win) {
             printLine("\n~~ Holy fucking shit you did it you amazing motherfucker you did it, the word was indeed " + chosenWord + " ~~");
@@ -111,7 +117,8 @@ public final class HangmanUtils {
         }
     }
 
-    private static void printGameState() {
+    // Print hangman character filled in corresponding to number of guess remaining
+    private static void printHangmanState() {
         String line1 = "* * * * * * * * * *\n";
         String line2 = "*   ┌────────┐    *\n";
         String line3 = "*   │        │    *\n" ;
