@@ -61,7 +61,6 @@ public final class HangmanUtils {
 
     private static String readCharacter() {
         String guess = "";
-
         while (guess.length() != 1) {
             System.out.print("What letter you finna guess?: ");
             guess = reader.nextLine();
@@ -86,12 +85,8 @@ public final class HangmanUtils {
     private static void printWordProgress() {
         String wordProgress = "Your word: ";
         for (String c : chosenWordCharacters) {
-            if (guessedLetters.contains(c)) {
-                wordProgress += c + "  ";
-            }
-            else {
-                wordProgress += "_  ";
-            }
+            if (guessedLetters.contains(c)) { wordProgress += c + "  "; }
+            else { wordProgress += "_  "; }
         }
         printLine(wordProgress);
     }
