@@ -5,17 +5,18 @@ import java.util.Scanner;
 public final class HangmanUtils {
 
     // GAME STATE VARIABLES
-    private static int attemptsLeft = 6;
-    private static int correctGuesses = 0;
+    private static int attemptsLeft;
+    private static int correctGuesses;
     private static String chosenWord = "";
-    private static ArrayList<String> chosenWordCharacters = new ArrayList<>();
-    private static ArrayList<String> guessedLetters = new ArrayList<>();
+    private static ArrayList<String> chosenWordCharacters;
+    private static ArrayList<String> guessedLetters;
     private static Scanner reader = new Scanner(System.in);
 
 
     // ~~~~~~~~~~~~ GAME FLOW METHODS ~~~~~~~~~~~~
     // Continuously play rounds until player wins or runs out of attempts
-    public static void playGame(String chosenWordInput) {
+    public static boolean playGame(String chosenWordInput) {
+        setGameStateVars();
         chosenWord = chosenWordInput.toUpperCase();
         for (char c : chosenWord.toCharArray()) {
             chosenWordCharacters.add(Character.toString(c));
@@ -31,7 +32,10 @@ public final class HangmanUtils {
         }
 
         if (attemptsLeft == 0) { printGameOver(false); }
-        reader.close();
+
+        boolean playAgain = promptAndReadPlayAgain();
+        if (!playAgain) { reader.close(); }
+        return playAgain;
     }
 
     // Print current game stats, prompt user for guess and check if correct
@@ -60,6 +64,14 @@ public final class HangmanUtils {
         }
     }
 
+    // Set game variables to new game defaults
+    private static void setGameStateVars() {
+        attemptsLeft = 6;
+        correctGuesses = 0;
+        chosenWordCharacters = new ArrayList<>();
+        guessedLetters = new ArrayList<>();
+    }
+
     // Prompt user for letter guess, validate input and return guess
     private static String promptAndReadGuess() {
         String guess = "";
@@ -75,6 +87,21 @@ public final class HangmanUtils {
             }
         }
         return guess.toUpperCase();
+    }
+
+    // Prompt user if they'd like to play again, validate response and return
+    private static boolean promptAndReadPlayAgain() {
+        String response = "";
+        while (!response.equals("yes") && !response.equals("no")) {
+            System.out.print("Wanna play again gooby (enter yes/no)?: ");
+            response = reader.nextLine();
+
+            if (!response.equals("yes") && !response.equals("no")) {
+                printLine("\nThe prompt said 'yes' or 'no' dumbass, do it again\n");
+            }
+        }
+
+        return response.equals("yes");
     }
 
 
@@ -110,10 +137,10 @@ public final class HangmanUtils {
         printHangmanState();
         printWordProgress();
         if (win) {
-            printLine("\n~~ Holy fucking shit you did it you amazing motherfucker you did it, the word was indeed " + chosenWord + " ~~");
+            printLine("\n~~ Holy fucking shit you did it you amazing motherfucker you did it, the word was indeed " + chosenWord + " ~~\n");
         }
         else {
-            printLine("\n~~ What an absolute fucking failure, you are so fucking dumb. The word was " + chosenWord + " ~~");
+            printLine("\n~~ What an absolute fucking failure, you are so fucking dumb. The word was " + chosenWord + " ~~\n");
         }
     }
 
