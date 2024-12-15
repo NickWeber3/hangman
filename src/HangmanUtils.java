@@ -12,6 +12,14 @@ public final class HangmanUtils {
     private static ArrayList<String> guessedLetters;
     private static Scanner reader = new Scanner(System.in);
 
+    // Set game variables to new game defaults
+    private static void setGameStateVars() {
+        attemptsLeft = 6;
+        correctGuesses = 0;
+        chosenWordCharacters = new ArrayList<>();
+        guessedLetters = new ArrayList<>();
+    }
+
 
     // ~~~~~~~~~~~~ GAME FLOW METHODS ~~~~~~~~~~~~
     // Continuously play rounds until player wins or runs out of attempts
@@ -62,14 +70,6 @@ public final class HangmanUtils {
             attemptsLeft -= 1;
             printLine("\n~~ You absolute fucking idiot, '" + guess + "' isn't even close to being in the word ~~\n");
         }
-    }
-
-    // Set game variables to new game defaults
-    private static void setGameStateVars() {
-        attemptsLeft = 6;
-        correctGuesses = 0;
-        chosenWordCharacters = new ArrayList<>();
-        guessedLetters = new ArrayList<>();
     }
 
     // Prompt user for letter guess, validate input and return guess
